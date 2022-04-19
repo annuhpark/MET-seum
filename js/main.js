@@ -45,7 +45,7 @@ function getArtworkInformation(objectID) {
     $row.appendChild($columnHalf);
     var $image = document.createElement('img');
     if (xhr.response.primaryImage === undefined || xhr.response.primaryImage === '') {
-      $image.setAttribute('src', 'https://static.wikia.nocookie.net/to-be-a-power-in-the-shadows/images/6/68/No-image-availablex2.jpg');
+      $image.setAttribute('src', 'http://www.hometownandcity.com/media/image/default.png');
     } else {
       $image.setAttribute('src', xhr.response.primaryImage);
     }
