@@ -3,7 +3,7 @@ var $views = document.querySelectorAll('.view');
 var $form = document.querySelector('form');
 var $department = document.getElementById('department');
 var $search = document.querySelector('.search-box');
-// var $folder = document.querySelector('.fa-folder-open');
+var $folder = document.querySelector('.fa-folder-open');
 var $subHeadingOfDepartment = document.querySelector('h2.sub-heading');
 var $options = document.querySelectorAll('option');
 var $heading = document.querySelector('h1.white-text');
@@ -102,4 +102,8 @@ function switchViewTo(targetPage) {
 $heading.addEventListener('click', function (event) {
   $ul.innerHTML = '';
   switchViewTo('search-form');
+});
+
+$folder.addEventListener('click', function (event) {
+  switchViewTo('favorites');
 });

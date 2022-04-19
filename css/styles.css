@@ -34,12 +34,18 @@ li {
   color: #ff5b5b;
 }
 
-h3.title {
+.red-orange-text:hover {
+  cursor: pointer;
+}
+
+h3.title,
+h2.favorites {
   color: white;
 }
 
 h3.object-date,
-h2.sub-heading {
+h2.sub-heading,
+h3.artist-display-name {
   color: #ff5b5b;
   font-family: Cormorant, serif;
   font-style: italic;
@@ -48,12 +54,6 @@ h2.sub-heading {
 h4.medium,
 h4.artist-display-bio {
   color: white;
-  font-family: Cormorant, serif;
-  font-style: italic;
-}
-
-h3.artist-display-name {
-  color: #ff5b5b;
   font-family: Cormorant, serif;
   font-style: italic;
 }
