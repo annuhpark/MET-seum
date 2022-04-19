@@ -8,11 +8,75 @@
   <link rel="stylesheet" href="css/reset.css">
   <link rel="stylesheet" href="css/layout.css">
   <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" crossorigin="anonymous"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
+    integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant&display=swap" rel="stylesheet">
 </head>
 <body>
   <header>
+    <i class="far fa-folder-open red-orange-text folder-size"></i>
+    <div class="container">
+      <div class="column-full">
+        <div class="row center baseline heading-text">
+          <h1 class="white-text">Metropolitan Museum of Art</h1>
+          <i class="fas fa-university white-text university-size"></i>
+        </div>
+        <hr class="solid">
+      </div>
+    </div>
   </header>
   <main>
+    <div data-view="search-form" class="view">
+      <form>
+        <div class="row center heading-padding">
+          <label for="department" class="sub-heading-text white-text">Department:</label>
+        </div>
+        <div class="row center heading-padding">
+          <select id="department" name="department" required>
+            <option value="" disabled selected>Choose your Department:</option>
+            <option value="1">American Decorative Arts</option>
+            <option value="3">Ancient Near Eastern Art</option>
+            <option value="4">Arms &amp; Armor</option>
+            <option value="5">Arts of Africa, Oceania, &amp; the Americas</option>
+            <option value="6">Asian Art</option>
+            <option value="7">The Cloisters</option>
+            <option value="8">The Costume Institute</option>
+            <option value="9">Drawing &amp; Prints</option>
+            <option value="10">Egyptian Art</option>
+            <option value="11">European Paintings</option>
+            <option value="12">European Sculpture &amp; Decorative Arts</option>
+            <option value="13">Greek &amp; Roman Art</option>
+            <option value="14">Islamic Art</option>
+            <option value="15">Robert Lehman Collection</option>
+            <option value="16">The Libraries</option>
+            <option value="17">Medieval Art</option>
+            <option value="18">Musical Instruments</option>
+            <option value="19">Photographs</option>
+            <option value="21">Modern Art</option>
+          </select>
+        </div>
+        <div class="row center heading-padding">
+          <label for="keywords" class="sub-heading-text white-text">Keywords:</label>
+        </div>
+        <div class="row center heading-padding">
+          <input class="search-box" id="search" type="search" name="search" required>
+        </div>
+        <div class="row center heading-padding">
+          <input class="submit-button" type="submit" value="SEARCH">
+        </div>
+      </form>
+    </div>
+    <div data-view="results" class="view hidden">
+      <div class="container">
+        <div class="row center">
+          <h2 class="sub-heading"></h2>
+        </div>
+      </div>
+      <ul></ul>
+    </div>
   </main>
   <script src="js/data.js"></script>
   <script src="js/main.js"></script>

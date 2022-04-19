@@ -1,0 +1,164 @@
+body {
+  font-family: Cormorant, serif;
+  background-color: #212429;
+  padding-top: 10px;
+  padding-left: 10px;
+  margin: 0;
+}
+
+img {
+  width: 100%;
+  max-height: 100%;
+}
+
+ul {
+  padding: 0;
+  list-style-type: none;
+}
+
+/* Text */
+
+.white-text {
+  color: white;
+}
+
+.red-orange-text {
+  color: #ff5b5b;
+}
+
+h3.title {
+  color: white;
+}
+
+h3.object-date,
+h2.sub-heading {
+  color: #ff5b5b;
+  font-family: Cormorant, serif;
+  font-style: italic;
+}
+
+h4.medium,
+h4.artist-display-bio {
+  color: white;
+  font-family: Cormorant, serif;
+  font-style: italic;
+}
+
+h3.artist-display-name {
+  color: #ff5b5b;
+  font-family: Cormorant, serif;
+  font-style: italic;
+}
+
+.fa-heart {
+  color: #ff5b5b;
+  font-size: 16px;
+}
+
+/* Heading */
+.university-size {
+  font-size: 26px;
+  padding-left: 6px;
+}
+
+.folder-size {
+  font-size: 20px;
+}
+
+.heading-text {
+  overflow-wrap: break-word;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.sub-heading-text {
+  font-size: 24px;
+}
+
+/* Formatting */
+.center {
+  justify-content: center;
+}
+
+.baseline {
+  align-items: baseline;
+}
+
+.heading-padding {
+  padding-top: 30px;
+}
+
+.align-items-center {
+  align-items: center;
+}
+
+.space-between {
+  justify-content: space-between;
+}
+
+.flex-direction-column {
+  flex-direction: column;
+}
+
+.text-align-center {
+  text-align: center;
+}
+
+/* Solid Line */
+
+hr.solid {
+  height: 1.6px;
+  background-color: black;
+  border: none;
+  width: 50%;
+}
+
+hr.thinner-solid {
+  height: 1px;
+  background-color: black;
+  border: none;
+  width: 70%;
+}
+
+/* Select HTML Decoration */
+
+select {
+  background-color: #212429;
+  color: #ff5b5b;
+  font-family: Cormorant, serif;
+  font-style: italic;
+  font-size: 16px;
+  margin-top: 3 0;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-radius: 24px;
+  padding-left: 14px;
+}
+
+/* Search Input */
+
+.search-box {
+  padding: 0.5rem;
+  background-color: #212429;
+  color: #ff5b5b;
+  font-family: Cormorant, serif;
+  font-style: italic;
+  font-size: 16px;
+  border: 1px solid gray;
+  border-radius: 24px;
+  outline: 0;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 14px;
+}
+
+/* Submit Button */
+.submit-button {
+  background-color: #d90505;
+  color: white;
+  box-shadow: none;
+  font-family: Cormorant, serif;
+  border-radius: 12px;
+  padding: 4px 12px;
+  border: 1px solid #d90505;
+}
