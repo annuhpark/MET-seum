@@ -34,7 +34,12 @@ li {
   color: #ff5b5b;
 }
 
-h3.title {
+.red-orange-text:hover {
+  cursor: pointer;
+}
+
+h3.title,
+h2.favorites {
   color: white;
 }
 
