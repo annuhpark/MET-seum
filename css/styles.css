@@ -8,7 +8,6 @@ body {
 
 img {
   width: 100%;
-  max-height: 100%;
 }
 
 ul {
@@ -16,10 +15,19 @@ ul {
   list-style-type: none;
 }
 
+li {
+  list-style: none;
+}
+
 /* Text */
 
 .white-text {
   color: white;
+}
+
+.white-text:hover {
+  color: white;
+  cursor: pointer;
 }
 
 .red-orange-text {
