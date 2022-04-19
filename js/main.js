@@ -6,24 +6,21 @@ var $search = document.querySelector('.search-box');
 // var $folder = document.querySelector('.fa-folder-open');
 var $subHeadingOfDepartment = document.querySelector('h2.sub-heading');
 var $options = document.querySelectorAll('option');
+var $heading = document.querySelector('h1.white-text');
 
 function getArtworksByDepartmentAndQuery() {
   event.preventDefault();
-  // console.log($department.value);
-  // console.log($search.value);
   var xhr = new XMLHttpRequest();
   xhr.open('GET', 'https://collectionapi.metmuseum.org/public/collection/v1/search?departmentId=' + $department.value + '&q=' + $search.value);
   xhr.responseType = 'json';
   xhr.addEventListener('load', function () {
     var randomNumber = Math.floor(Math.random() * xhr.response.objectIDs.length);
     var randomArtwork = xhr.response.objectIDs[randomNumber];
-    // console.log(xhr.response.objectIDs);
     getArtworkInformation(randomArtwork);
   });
   xhr.send();
   switchViewTo('results');
 }
-// getArtworksByDepartmentAndQuery('6', 'food');
 $form.addEventListener('submit', getArtworksByDepartmentAndQuery);
 
 function getArtworkInformation(objectID) {
@@ -31,25 +28,22 @@ function getArtworkInformation(objectID) {
   xhr.open('GET', 'https://collectionapi.metmuseum.org/public/collection/v1/objects/' + objectID);
   xhr.responseType = 'json';
   xhr.addEventListener('load', function () {
-    // console.log($options);
     for (let i = 0; i < $options.length; i++) {
       if ($department.value === $options[i].value) {
         $subHeadingOfDepartment.textContent = $options[i].textContent;
       }
     }
-    // $subHeadingOfDepartment.textContent = $department.value.textContent;
-    var $container = document.createElement('div');
-    $container.setAttribute('class', 'container');
-    $ul.appendChild($container);
+    var $li = document.createElement('li');
+    $li.setAttribute('class', 'container');
+    $ul.appendChild($li);
     var $row = document.createElement('div');
     $row.setAttribute('class', 'row align-items-center wrap');
-    $container.appendChild($row);
+    $li.appendChild($row);
     var $columnHalf = document.createElement('div');
     $columnHalf.setAttribute('class', 'column-half');
     $row.appendChild($columnHalf);
     var $image = document.createElement('img');
     $image.setAttribute('src', xhr.response.primaryImage);
-    // console.log(xhr.response.primaryImage);
     $columnHalf.appendChild($image);
     if (xhr.response.primaryImage === '') {
       $image.setAttribute('src', 'https://static.wikia.nocookie.net/to-be-a-power-in-the-shadows/images/6/68/No-image-availablex2.jpg/revision/latest?cb=20220106040708');
@@ -104,3 +98,8 @@ function switchViewTo(targetPage) {
     }
   }
 }
+
+$heading.addEventListener('click', function (event) {
+  $ul.innerHTML = '';
+  switchViewTo('search-form');
+});
