@@ -1,4 +1,4 @@
-var $ul = document.querySelector('ul');
+var $ul = document.querySelector('ul.result');
 var $views = document.querySelectorAll('.view');
 var $form = document.querySelector('form');
 var $department = document.getElementById('department');
@@ -7,6 +7,7 @@ var $folder = document.querySelector('.fa-folder-open');
 var $subHeadingOfDepartment = document.querySelector('h2.sub-heading');
 var $options = document.querySelectorAll('option');
 var $heading = document.querySelector('h1.white-text');
+var $ul2 = document.querySelector('ul.favorites');
 
 function getArtworksByDepartmentAndQuery() {
   event.preventDefault();
@@ -43,11 +44,12 @@ function getArtworkInformation(objectID) {
     $columnHalf.setAttribute('class', 'column-half');
     $row.appendChild($columnHalf);
     var $image = document.createElement('img');
-    $image.setAttribute('src', xhr.response.primaryImage);
-    $columnHalf.appendChild($image);
-    if (xhr.response.primaryImage === '') {
-      $image.setAttribute('src', 'https://static.wikia.nocookie.net/to-be-a-power-in-the-shadows/images/6/68/No-image-availablex2.jpg/revision/latest?cb=20220106040708');
+    if (xhr.response.primaryImage === undefined || xhr.response.primaryImage === '') {
+      $image.setAttribute('src', 'https://static.wikia.nocookie.net/to-be-a-power-in-the-shadows/images/6/68/No-image-availablex2.jpg');
+    } else {
+      $image.setAttribute('src', xhr.response.primaryImage);
     }
+    $columnHalf.appendChild($image);
     var $secondColumnHalf = document.createElement('div');
     $secondColumnHalf.setAttribute('class', 'column-half');
     $row.appendChild($secondColumnHalf);
@@ -83,9 +85,89 @@ function getArtworkInformation(objectID) {
     var $heart = document.createElement('i');
     $heart.setAttribute('class', 'far fa-heart heading-padding');
     $secondRow.appendChild($heart);
+    $heart.addEventListener('click', function (event) {
+      var entry = {
+        title: xhr.response.title,
+        primaryImage: xhr.response.primaryImage,
+        entryId: data.nextEntryId,
+        artist: xhr.response.artistDisplayName,
+        objectDate: xhr.response.objectDate
+      };
+      data.nextEntryId++;
+      data.entries.unshift(entry);
+      $ul2.prepend(renderEntries(entry));
+      switchViewTo('favorites');
+    });
   });
   xhr.send();
 }
+
+function renderEntries(artwork) {
+  var $li = document.createElement('li');
+  $li.setAttribute('class', 'container heading-padding');
+  $ul2.appendChild($li);
+  var $row = document.createElement('div');
+  $row.setAttribute('class', 'row align-items-center wrap');
+  $li.appendChild($row);
+  var $columnHalf = document.createElement('div');
+  $columnHalf.setAttribute('class', 'column-half');
+  $row.appendChild($columnHalf);
+  var $image = document.createElement('img');
+  if (artwork.primaryImage === undefined || artwork.primaryImage === '') {
+    $image.setAttribute('src', 'http://www.hometownandcity.com/media/image/default.png');
+  } else {
+    $image.setAttribute('src', artwork.primaryImage);
+  }
+  $columnHalf.appendChild($image);
+  var $secondColumnHalf = document.createElement('div');
+  $secondColumnHalf.setAttribute('class', 'column-half left-padding');
+  $row.appendChild($secondColumnHalf);
+  var $secondRow = document.createElement('div');
+  $secondRow.setAttribute('class', 'row flex-direction-column text-align-center');
+  $secondColumnHalf.appendChild($secondRow);
+  var $blackLineDivider = document.createElement('hr');
+  $blackLineDivider.setAttribute('class', 'thinner-solid');
+  $secondRow.appendChild($blackLineDivider);
+  var $title = document.createElement('h3');
+  $title.setAttribute('class', 'title');
+  if (artwork.title === undefined) {
+    $title.textContent = 'Title: Unknown';
+  } else {
+    $title.textContent = artwork.title;
+  }
+  $secondRow.appendChild($title);
+  var $artistDisplayName = document.createElement('h3');
+  $artistDisplayName.setAttribute('class', 'artist-display-name');
+  if (artwork.artistDisplayName === undefined) {
+    $artistDisplayName.textContent = 'Artist: Unknown';
+  } else {
+    $artistDisplayName.textContent = artwork.artistDisplayName;
+  }
+  $secondRow.appendChild($artistDisplayName);
+  var $objectDate = document.createElement('h3');
+  $objectDate.setAttribute('class', 'object-date');
+  if (artwork.objectDate === 'undefined') {
+    $objectDate.textContent = 'Date: Unknown';
+  } else {
+    $objectDate.textContent = artwork.objectDate;
+  }
+  $secondRow.appendChild($objectDate);
+  var $secondBlackLineDivider = document.createElement('hr');
+  $secondBlackLineDivider.setAttribute('class', 'thinner-solid');
+  $secondRow.appendChild($secondBlackLineDivider);
+  var $linkSlash = document.createElement('i');
+  $linkSlash.setAttribute('class', 'fas fa-unlink heading-padding red-orange-text');
+  $secondRow.appendChild($linkSlash);
+  return $li;
+}
+
+document.addEventListener('DOMContentLoaded', function (event) {
+  for (let i = 0; i < data.entries.length; i++) {
+    var value = renderEntries(data.entries[i]);
+    $ul2.appendChild(value);
+  }
+  switchViewTo(data.view);
+});
 
 /* Switching View */
 function switchViewTo(targetPage) {
@@ -101,6 +183,7 @@ function switchViewTo(targetPage) {
 
 $heading.addEventListener('click', function (event) {
   $ul.innerHTML = '';
+  $form.reset();
   switchViewTo('search-form');
 });
 

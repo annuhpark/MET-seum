@@ -30,11 +30,22 @@ li {
   cursor: pointer;
 }
 
+/* Folder */
 .red-orange-text {
   color: #ff5b5b;
 }
 
 .red-orange-text:hover {
+  cursor: pointer;
+}
+
+/* Heart */
+.fa-heart {
+  color: #ff5b5b;
+  font-size: 16px;
+}
+
+.fa-heart:hover {
   cursor: pointer;
 }
 
@@ -61,11 +72,6 @@ h3.artist-display-name {
   color: #ff5b5b;
   font-family: Cormorant, serif;
   font-style: italic;
-}
-
-.fa-heart {
-  color: #ff5b5b;
-  font-size: 16px;
 }
 
 /* Heading */
@@ -99,6 +105,10 @@ h3.artist-display-name {
 
 .heading-padding {
   padding-top: 30px;
+}
+
+.left-padding {
+  padding-left: 20px;
 }
 
 .align-items-center {
