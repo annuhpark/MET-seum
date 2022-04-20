@@ -9,6 +9,9 @@ var $options = document.querySelectorAll('option');
 var $ul2 = document.querySelector('ul.favorites');
 var $heading = document.querySelector('.heading-text');
 var $ul3 = document.querySelector('ul.details');
+var $modal = document.querySelector('.modal');
+var $cancelButton = document.querySelector('.cancel-button');
+var $confirmButton = document.querySelector('.confirm-button');
 
 function getArtworksByDepartmentAndQuery() {
   event.preventDefault();
@@ -128,6 +131,7 @@ function getArtworkInformation(objectID) {
 function renderEntries(artwork) {
   var $li = document.createElement('li');
   $li.setAttribute('class', 'container heading-padding');
+  $li.setAttribute('data-entry-id', artwork.entryId);
   $ul2.appendChild($li);
   var $row = document.createElement('div');
   $row.setAttribute('class', 'row align-items-center wrap');
@@ -142,6 +146,7 @@ function renderEntries(artwork) {
     $image.setAttribute('src', artwork.primaryImage);
   }
   $columnHalf.appendChild($image);
+  $image.classList.add('hover-class-one');
   $image.addEventListener('click', function (event) {
     var $images = document.querySelectorAll('img');
     for (let i = 0; i < $images.length; i++) {
@@ -178,7 +183,7 @@ function renderEntries(artwork) {
         var $medium = document.createElement('h4');
         $medium.setAttribute('class', 'medium');
         // console.log(data.entries[i].medium);
-        if (data.entries[i].medium === '') {
+        if (data.entries[i].medium === '' || data.entries[i].medium === undefined) {
           $medium.textContent = 'Medium: Unknown';
         } else {
           $medium.textContent = data.entries[i].medium;
@@ -240,8 +245,18 @@ function renderEntries(artwork) {
   $secondBlackLineDivider.setAttribute('class', 'thinner-solid');
   $secondRow.appendChild($secondBlackLineDivider);
   var $linkSlash = document.createElement('i');
-  $linkSlash.setAttribute('class', 'fas fa-unlink heading-padding red-orange-text');
+  $linkSlash.setAttribute('class', 'fas fa-unlink heading-padding red-orange-text hover-class-one');
   $secondRow.appendChild($linkSlash);
+  $linkSlash.addEventListener('click', function (event) {
+    $modal.className = 'modal view';
+    var titleOfArtwork = event.target.closest('.align-items-center').querySelector('h3.title').textContent;
+    for (let i = 0; i < data.entries.length; i++) {
+      if (titleOfArtwork === data.entries[i].title) {
+        data.remove = data.entries[i];
+        // console.log(data.remove);
+      }
+    }
+  });
   return $li;
 }
 
@@ -274,5 +289,21 @@ $heading.addEventListener('click', function (event) {
 
 $folder.addEventListener('click', function (event) {
   switchViewTo('favorites');
+  $ul.innerHTML = '';
   $ul3.innerHTML = '';
+});
+
+$cancelButton.addEventListener('click', function (event) {
+  $modal.className = 'modal view hidden';
+});
+
+$confirmButton.addEventListener('click', function (event) {
+  for (let i = 0; i < $ul2.children.length; i++) {
+    if ($ul2.children[i].querySelector('h3.title').textContent === data.remove.title) {
+      $ul2.children[i].remove();
+      data.entries.splice(i, 1);
+    }
+  }
+  switchViewTo('favorites');
+  data.remove = null;
 });
