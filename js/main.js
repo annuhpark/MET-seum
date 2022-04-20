@@ -9,6 +9,9 @@ var $options = document.querySelectorAll('option');
 var $ul2 = document.querySelector('ul.favorites');
 var $heading = document.querySelector('.heading-text');
 var $ul3 = document.querySelector('ul.details');
+var $modal = document.querySelector('.modal');
+var $cancelButton = document.querySelector('.cancel-button');
+var $confirmButton = document.querySelector('.confirm-button');
 
 function getArtworksByDepartmentAndQuery() {
   event.preventDefault();
@@ -128,6 +131,7 @@ function getArtworkInformation(objectID) {
 function renderEntries(artwork) {
   var $li = document.createElement('li');
   $li.setAttribute('class', 'container heading-padding');
+  $li.setAttribute('data-entry-id', artwork.entryId);
   $ul2.appendChild($li);
   var $row = document.createElement('div');
   $row.setAttribute('class', 'row align-items-center wrap');
@@ -142,6 +146,7 @@ function renderEntries(artwork) {
     $image.setAttribute('src', artwork.primaryImage);
   }
   $columnHalf.appendChild($image);
+  $image.classList.add('hover-class-one');
   $image.addEventListener('click', function (event) {
     var $images = document.querySelectorAll('img');
     for (let i = 0; i < $images.length; i++) {
@@ -177,7 +182,7 @@ function renderEntries(artwork) {
         $secondRow.appendChild($objectDate);
         var $medium = document.createElement('h4');
         $medium.setAttribute('class', 'medium');
-        if (data.entries[i].medium === '') {
+                if (data.entries[i].medium === '') {
           $medium.textContent = 'Medium: Unknown';
         } else {
           $medium.textContent = data.entries[i].medium;
@@ -274,3 +279,5 @@ $folder.addEventListener('click', function (event) {
   switchViewTo('favorites');
   $ul3.innerHTML = '';
 });
+
+       

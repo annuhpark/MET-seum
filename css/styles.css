@@ -30,6 +30,12 @@ li {
   cursor: pointer;
 }
 
+/* Image and Link Hover */
+
+.hover-class-one:hover {
+  cursor: pointer;
+}
+
 /* Folder */
 .red-orange-text {
   color: #ff5b5b;
@@ -185,4 +191,56 @@ select {
   border-radius: 12px;
   padding: 4px 12px;
   border: 1px solid #d90505;
+}
+
+/* Modal */
+.modal {
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+
+  /* background-color: rgb(0, 0, 0); */
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.modal-content {
+  background-color: white;
+  border: 1px solid black;
+  font-size: 12px;
+  margin: 15% auto;
+  padding-top: 50px;
+  padding-bottom: 50px;
+  width: 60%;
+}
+
+.confirm-button {
+  background-color: #d90505;
+  font-size: 18px;
+  font-family: Cormorant, serif;
+  color: white;
+  border: none;
+  padding: 6px 24px;
+  margin-top: 6px;
+}
+
+.confirm-button:hover {
+  cursor: pointer;
+}
+
+.cancel-button {
+  background-color: #d90505;
+  font-size: 18px;
+  font-family: Cormorant, serif;
+  color: white;
+  border: none;
+  padding: 6px 24px;
+  margin-top: 6px;
+}
+
+.cancel-button:hover {
+  cursor: pointer;
 }

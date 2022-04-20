@@ -2,6 +2,7 @@
 var data = {
   view: 'search-form',
   entries: [],
+  remove: null,
   nextEntryId: 1
 };
 
