@@ -177,7 +177,6 @@ function renderEntries(artwork) {
         $secondRow.appendChild($objectDate);
         var $medium = document.createElement('h4');
         $medium.setAttribute('class', 'medium');
-        // console.log(data.entries[i].medium);
         if (data.entries[i].medium === '') {
           $medium.textContent = 'Medium: Unknown';
         } else {
@@ -253,7 +252,6 @@ window.addEventListener('DOMContentLoaded', function (event) {
   switchViewTo(data.view);
 });
 
-/* Switching View */
 function switchViewTo(targetPage) {
   for (let i = 0; i < $views.length; i++) {
     if ($views[i].getAttribute('data-view') === targetPage) {
