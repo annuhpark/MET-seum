@@ -182,8 +182,7 @@ function renderEntries(artwork) {
         $secondRow.appendChild($objectDate);
         var $medium = document.createElement('h4');
         $medium.setAttribute('class', 'medium');
-        // console.log(data.entries[i].medium);
-        if (data.entries[i].medium === '' || data.entries[i].medium === undefined) {
+                if (data.entries[i].medium === '') {
           $medium.textContent = 'Medium: Unknown';
         } else {
           $medium.textContent = data.entries[i].medium;
@@ -245,18 +244,8 @@ function renderEntries(artwork) {
   $secondBlackLineDivider.setAttribute('class', 'thinner-solid');
   $secondRow.appendChild($secondBlackLineDivider);
   var $linkSlash = document.createElement('i');
-  $linkSlash.setAttribute('class', 'fas fa-unlink heading-padding red-orange-text hover-class-one');
+  $linkSlash.setAttribute('class', 'fas fa-unlink heading-padding red-orange-text');
   $secondRow.appendChild($linkSlash);
-  $linkSlash.addEventListener('click', function (event) {
-    $modal.className = 'modal view';
-    var titleOfArtwork = event.target.closest('.align-items-center').querySelector('h3.title').textContent;
-    for (let i = 0; i < data.entries.length; i++) {
-      if (titleOfArtwork === data.entries[i].title) {
-        data.remove = data.entries[i];
-        // console.log(data.remove);
-      }
-    }
-  });
   return $li;
 }
 
@@ -268,7 +257,6 @@ window.addEventListener('DOMContentLoaded', function (event) {
   switchViewTo(data.view);
 });
 
-/* Switching View */
 function switchViewTo(targetPage) {
   for (let i = 0; i < $views.length; i++) {
     if ($views[i].getAttribute('data-view') === targetPage) {
@@ -289,21 +277,7 @@ $heading.addEventListener('click', function (event) {
 
 $folder.addEventListener('click', function (event) {
   switchViewTo('favorites');
-  $ul.innerHTML = '';
   $ul3.innerHTML = '';
 });
 
-$cancelButton.addEventListener('click', function (event) {
-  $modal.className = 'modal view hidden';
-});
-
-$confirmButton.addEventListener('click', function (event) {
-  for (let i = 0; i < $ul2.children.length; i++) {
-    if ($ul2.children[i].querySelector('h3.title').textContent === data.remove.title) {
-      $ul2.children[i].remove();
-      data.entries.splice(i, 1);
-    }
-  }
-  switchViewTo('favorites');
-  data.remove = null;
-});
+       
