@@ -6,8 +6,9 @@ var $search = document.querySelector('.search-box');
 var $folder = document.querySelector('.fa-folder-open');
 var $subHeadingOfDepartment = document.querySelector('h2.sub-heading');
 var $options = document.querySelectorAll('option');
-var $heading = document.querySelector('h1.white-text');
 var $ul2 = document.querySelector('ul.favorites');
+var $heading = document.querySelector('.heading-text');
+var $ul3 = document.querySelector('ul.details');
 
 function getArtworksByDepartmentAndQuery() {
   event.preventDefault();
@@ -51,7 +52,7 @@ function getArtworkInformation(objectID) {
     }
     $columnHalf.appendChild($image);
     var $secondColumnHalf = document.createElement('div');
-    $secondColumnHalf.setAttribute('class', 'column-half');
+    $secondColumnHalf.setAttribute('class', 'column-half left-padding');
     $row.appendChild($secondColumnHalf);
     var $secondRow = document.createElement('div');
     $secondRow.setAttribute('class', 'row flex-direction-column text-align-center');
@@ -61,23 +62,43 @@ function getArtworkInformation(objectID) {
     $secondRow.appendChild($blackLineDivider);
     var $title = document.createElement('h3');
     $title.setAttribute('class', 'title');
-    $title.textContent = xhr.response.title;
+    if (xhr.response.title === '') {
+      $title.textContent = 'Title: Unknown';
+    } else {
+      $title.textContent = xhr.response.title;
+    }
     $secondRow.appendChild($title);
     var $objectDate = document.createElement('h3');
     $objectDate.setAttribute('class', 'object-date');
-    $objectDate.textContent = xhr.response.objectDate;
+    if (xhr.response.objectDate === '') {
+      $objectDate.textContent = 'Date: Unknown';
+    } else {
+      $objectDate.textContent = xhr.response.objectDate;
+    }
     $secondRow.appendChild($objectDate);
     var $medium = document.createElement('h4');
     $medium.setAttribute('class', 'medium');
-    $medium.textContent = xhr.response.medium;
+    if (xhr.response.medium === '') {
+      $medium.textContent = 'Medium: Unknown';
+    } else {
+      $medium.textContent = xhr.response.medium;
+    }
     $secondRow.appendChild($medium);
     var $artistDisplayName = document.createElement('h3');
     $artistDisplayName.setAttribute('class', 'artist-display-name');
-    $artistDisplayName.textContent = xhr.response.artistDisplayName;
+    if (xhr.response.artistDisplayName === '') {
+      $artistDisplayName.textContent = 'Artist: Unknown';
+    } else {
+      $artistDisplayName.textContent = xhr.response.artistDisplayName;
+    }
     $secondRow.appendChild($artistDisplayName);
     var $artistDisplayBio = document.querySelector('h4');
     $artistDisplayBio.setAttribute('class', 'artist-display-bio');
-    $artistDisplayBio.textContent = xhr.response.artistDisplayBio;
+    if (xhr.response.artistDisplayBio === '') {
+      $artistDisplayBio.textContent = 'Biography: Unknown';
+    } else {
+      $artistDisplayBio.textContent = xhr.response.artistDisplayBio;
+    }
     $secondRow.appendChild($artistDisplayBio);
     var $secondBlackLineDivider = document.createElement('hr');
     $secondBlackLineDivider.setAttribute('class', 'thinner-solid');
@@ -91,7 +112,9 @@ function getArtworkInformation(objectID) {
         primaryImage: xhr.response.primaryImage,
         entryId: data.nextEntryId,
         artist: xhr.response.artistDisplayName,
-        objectDate: xhr.response.objectDate
+        objectDate: xhr.response.objectDate,
+        medium: xhr.response.medium,
+        artistBio: xhr.response.artistDisplayBio
       };
       data.nextEntryId++;
       data.entries.unshift(entry);
@@ -119,6 +142,67 @@ function renderEntries(artwork) {
     $image.setAttribute('src', artwork.primaryImage);
   }
   $columnHalf.appendChild($image);
+  $image.addEventListener('click', function (event) {
+    var $images = document.querySelectorAll('img');
+    for (let i = 0; i < $images.length; i++) {
+      if (event.target === $images[i]) {
+        var $li = document.createElement('li');
+        $li.setAttribute('class', 'container');
+        $ul3.appendChild($li);
+        var $row = document.createElement('div');
+        $row.setAttribute('class', 'row align-items-center wrap');
+        $li.appendChild($row);
+        var $columnHalf = document.createElement('div');
+        $columnHalf.setAttribute('class', 'column-half');
+        $row.appendChild($columnHalf);
+        var $image = document.createElement('img');
+        $image.setAttribute('src', $images[i].getAttribute('src'));
+        $columnHalf.appendChild($image);
+        var $secondColumnHalf = document.createElement('div');
+        $secondColumnHalf.setAttribute('class', 'column-half left-padding');
+        $row.appendChild($secondColumnHalf);
+        var $secondRow = document.createElement('div');
+        $secondRow.setAttribute('class', 'row flex-direction-column text-align-center');
+        $secondColumnHalf.appendChild($secondRow);
+        var $blackLineDivider = document.createElement('hr');
+        $blackLineDivider.setAttribute('class', 'thinner-solid');
+        $secondRow.appendChild($blackLineDivider);
+        var $title = document.createElement('h3');
+        $title.setAttribute('class', 'title');
+        $title.textContent = event.target.closest('.align-items-center').querySelector('h3').textContent;
+        $secondRow.appendChild($title);
+        var $objectDate = document.createElement('h3');
+        $objectDate.setAttribute('class', 'object-date');
+        $objectDate.textContent = event.target.closest('.align-items-center').querySelector('h3.object-date').textContent;
+        $secondRow.appendChild($objectDate);
+        var $medium = document.createElement('h4');
+        $medium.setAttribute('class', 'medium');
+        // console.log(data.entries[i].medium);
+        if (data.entries[i].medium === '') {
+          $medium.textContent = 'Medium: Unknown';
+        } else {
+          $medium.textContent = data.entries[i].medium;
+        }
+        $secondRow.appendChild($medium);
+        var $artistDisplayName = document.createElement('h3');
+        $artistDisplayName.setAttribute('class', 'artist-display-name');
+        $artistDisplayName.textContent = event.target.closest('.align-items-center').querySelector('h3.artist-display-name').textContent;
+        $secondRow.appendChild($artistDisplayName);
+        var $artistDisplayBio = document.createElement('h4');
+        $artistDisplayBio.setAttribute('class', 'artist-display-bio');
+        if (data.entries[i].artistBio === '') {
+          $artistDisplayBio.textContent = 'Bio: Unknown';
+        } else {
+          $artistDisplayBio.textContent = data.entries[i].artistBio;
+        }
+        $secondRow.appendChild($artistDisplayBio);
+        var $secondBlackLineDivider = document.createElement('hr');
+        $secondBlackLineDivider.setAttribute('class', 'thinner-solid');
+        $secondRow.appendChild($secondBlackLineDivider);
+        switchViewTo('favorite-details');
+      }
+    }
+  });
   var $secondColumnHalf = document.createElement('div');
   $secondColumnHalf.setAttribute('class', 'column-half left-padding');
   $row.appendChild($secondColumnHalf);
@@ -130,7 +214,7 @@ function renderEntries(artwork) {
   $secondRow.appendChild($blackLineDivider);
   var $title = document.createElement('h3');
   $title.setAttribute('class', 'title');
-  if (artwork.title === undefined) {
+  if (artwork.title === undefined || artwork.title === '') {
     $title.textContent = 'Title: Unknown';
   } else {
     $title.textContent = artwork.title;
@@ -138,7 +222,7 @@ function renderEntries(artwork) {
   $secondRow.appendChild($title);
   var $artistDisplayName = document.createElement('h3');
   $artistDisplayName.setAttribute('class', 'artist-display-name');
-  if (artwork.artistDisplayName === undefined) {
+  if (artwork.artistDisplayName === undefined || artwork.artistDisplayName === '') {
     $artistDisplayName.textContent = 'Artist: Unknown';
   } else {
     $artistDisplayName.textContent = artwork.artistDisplayName;
@@ -146,7 +230,7 @@ function renderEntries(artwork) {
   $secondRow.appendChild($artistDisplayName);
   var $objectDate = document.createElement('h3');
   $objectDate.setAttribute('class', 'object-date');
-  if (artwork.objectDate === 'undefined') {
+  if (artwork.objectDate === undefined || artwork.objectDate === '') {
     $objectDate.textContent = 'Date: Unknown';
   } else {
     $objectDate.textContent = artwork.objectDate;
@@ -161,7 +245,7 @@ function renderEntries(artwork) {
   return $li;
 }
 
-document.addEventListener('DOMContentLoaded', function (event) {
+window.addEventListener('DOMContentLoaded', function (event) {
   for (let i = 0; i < data.entries.length; i++) {
     var value = renderEntries(data.entries[i]);
     $ul2.appendChild(value);
@@ -183,10 +267,12 @@ function switchViewTo(targetPage) {
 
 $heading.addEventListener('click', function (event) {
   $ul.innerHTML = '';
+  $ul3.innerHTML = '';
   $form.reset();
   switchViewTo('search-form');
 });
 
 $folder.addEventListener('click', function (event) {
   switchViewTo('favorites');
+  $ul3.innerHTML = '';
 });

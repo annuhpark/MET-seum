@@ -50,7 +50,8 @@ li {
 }
 
 h3.title,
-h2.favorites {
+h2.favorites,
+h2.details {
   color: white;
 }
 
