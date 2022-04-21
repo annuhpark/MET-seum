@@ -307,3 +307,5 @@ $confirmButton.addEventListener('click', function (event) {
   switchViewTo('favorites');
   data.remove = null;
 });
+
+// console.log('hi');
