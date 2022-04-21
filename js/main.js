@@ -279,5 +279,21 @@ $folder.addEventListener('click', function (event) {
   switchViewTo('favorites');
   $ul3.innerHTML = '';
 });
+$cancelButton.addEventListener('click', function (event) {
+  $modal.className = 'modal view hidden';
+});
 
-       
+$confirmButton.addEventListener('click', function (event) {
+  for (let i = 0; i < $ul2.children.length; i++) {
+    if ($ul2.children[i].querySelector('h3.title').textContent === data.remove.title) {
+      $ul2.children[i].remove();
+      data.entries.splice(i, 1);
+    }
+  }
+  switchViewTo('favorites');
+  data.remove = null;
+});
+
+// console.log('hi');
+
+
