@@ -246,6 +246,10 @@ function renderEntries(artwork) {
   var $linkSlash = document.createElement('i');
   $linkSlash.setAttribute('class', 'fas fa-unlink heading-padding red-orange-text');
   $secondRow.appendChild($linkSlash);
+  $linkSlash.addEventListener('click', function (event) {
+    $modal.className = 'modal view';
+    data.remove = $linkSlash.closest('.flex-direction-column').querySelector('h3.title').textContent;
+  });
   return $li;
 }
 
@@ -285,7 +289,7 @@ $cancelButton.addEventListener('click', function (event) {
 
 $confirmButton.addEventListener('click', function (event) {
   for (let i = 0; i < $ul2.children.length; i++) {
-    if ($ul2.children[i].querySelector('h3.title').textContent === data.remove.title) {
+    if ($ul2.children[i].querySelector('h3.title').textContent === data.remove) {
       $ul2.children[i].remove();
       data.entries.splice(i, 1);
     }
@@ -293,5 +297,3 @@ $confirmButton.addEventListener('click', function (event) {
   switchViewTo('favorites');
   data.remove = null;
 });
-
-// console.log('hi');
