@@ -182,7 +182,7 @@ function renderEntries(artwork) {
         $secondRow.appendChild($objectDate);
         var $medium = document.createElement('h4');
         $medium.setAttribute('class', 'medium');
-                if (data.entries[i].medium === '') {
+        if (data.entries[i].medium === '') {
           $medium.textContent = 'Medium: Unknown';
         } else {
           $medium.textContent = data.entries[i].medium;
@@ -295,5 +295,3 @@ $confirmButton.addEventListener('click', function (event) {
 });
 
 // console.log('hi');
-
-
