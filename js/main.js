@@ -58,7 +58,7 @@ function getArtworkInformation(objectID) {
     $secondColumnHalf.setAttribute('class', 'column-half left-padding');
     $row.appendChild($secondColumnHalf);
     var $secondRow = document.createElement('div');
-    $secondRow.setAttribute('class', 'row flex-direction-column text-align-center');
+    $secondRow.setAttribute('class', 'row flex-direction-column text-align-center wrap');
     $secondColumnHalf.appendChild($secondRow);
     var $blackLineDivider = document.createElement('hr');
     $blackLineDivider.setAttribute('class', 'thinner-solid');
@@ -201,7 +201,7 @@ function renderEntries(artwork) {
           $artistDisplayBio.textContent = data.entries[i].artistBio;
         }
         $secondRow.appendChild($artistDisplayBio);
-        var $linkResource = document.createElement('h3');
+        var $linkResource = document.createElement('h5');
         $linkResource.setAttribute('class', 'link-resource');
         if (data.entries[i].linkResource === '') {
           $linkResource.textContent = 'URL: Unknown';
