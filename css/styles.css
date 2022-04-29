@@ -75,7 +75,8 @@ h4.artist-display-bio {
   font-style: italic;
 }
 
-h3.artist-display-name {
+h3.artist-display-name,
+h3.link-resource {
   color: #ff5b5b;
   font-family: Cormorant, serif;
   font-style: italic;

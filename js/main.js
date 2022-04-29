@@ -117,7 +117,8 @@ function getArtworkInformation(objectID) {
         artist: xhr.response.artistDisplayName,
         objectDate: xhr.response.objectDate,
         medium: xhr.response.medium,
-        artistBio: xhr.response.artistDisplayBio
+        artistBio: xhr.response.artistDisplayBio,
+        linkResource: xhr.response.objectURL
       };
       data.nextEntryId++;
       data.entries.unshift(entry);
@@ -200,6 +201,14 @@ function renderEntries(artwork) {
           $artistDisplayBio.textContent = data.entries[i].artistBio;
         }
         $secondRow.appendChild($artistDisplayBio);
+        var $linkResource = document.createElement('h3');
+        $linkResource.setAttribute('class', 'link-resource');
+        if (data.entries[i].linkResource === '') {
+          $linkResource.textContent = 'URL: Unknown';
+        } else {
+          $linkResource.textContent = data.entries[i].linkResource;
+        }
+        $secondRow.appendChild($linkResource);
         var $secondBlackLineDivider = document.createElement('hr');
         $secondBlackLineDivider.setAttribute('class', 'thinner-solid');
         $secondRow.appendChild($secondBlackLineDivider);
