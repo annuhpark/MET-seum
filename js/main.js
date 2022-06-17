@@ -19,6 +19,19 @@ function getArtworksByDepartmentAndQuery() {
   xhr.open('GET', 'https://collectionapi.metmuseum.org/public/collection/v1/search?departmentId=' + $department.value + '&q=' + $search.value);
   xhr.responseType = 'json';
   xhr.addEventListener('load', function () {
+    if (xhr.response.objectIDs === null) {
+      var $li = document.createElement('li');
+      $li.setAttribute('class', 'container');
+      $ul.appendChild($li);
+      var $row = document.createElement('div');
+      $row.setAttribute('class', 'row flex-direction-column text-align-center wrap');
+      $li.appendChild($row);
+      var $errorText = document.createElement('h3');
+      $errorText.setAttribute('class', 'title');
+      $errorText.textContent = 'No results that match your criteria. Please try again!';
+      $row.appendChild($errorText);
+      return $errorText;
+    }
     var randomNumber = Math.floor(Math.random() * xhr.response.objectIDs.length);
     var randomArtwork = xhr.response.objectIDs[randomNumber];
     getArtworkInformation(randomArtwork);
@@ -49,7 +62,7 @@ function getArtworkInformation(objectID) {
     $row.appendChild($columnHalf);
     var $image = document.createElement('img');
     if (xhr.response.primaryImage === undefined || xhr.response.primaryImage === '') {
-      $image.setAttribute('src', 'http://www.hometownandcity.com/media/image/default.png');
+      $image.setAttribute('src', 'images/no-image-available.jpg');
     } else {
       $image.setAttribute('src', xhr.response.primaryImage);
     }
@@ -142,7 +155,7 @@ function renderEntries(artwork) {
   $row.appendChild($columnHalf);
   var $image = document.createElement('img');
   if (artwork.primaryImage === undefined || artwork.primaryImage === '') {
-    $image.setAttribute('src', 'http://www.hometownandcity.com/media/image/default.png');
+    $image.setAttribute('src', 'images/no-image-available.jpg');
   } else {
     $image.setAttribute('src', artwork.primaryImage);
   }
@@ -183,7 +196,7 @@ function renderEntries(artwork) {
         $secondRow.appendChild($objectDate);
         var $medium = document.createElement('h4');
         $medium.setAttribute('class', 'medium');
-        if (data.entries[i].medium === '') {
+        if (data.entries[i].medium === '' || data.entries[i].medium === undefined) {
           $medium.textContent = 'Medium: Unknown';
         } else {
           $medium.textContent = data.entries[i].medium;
