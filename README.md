@@ -23,7 +23,7 @@ Try the application live at [https://annuhpark.github.io/ajax--project](https://
 
 ## Preview
 
-![SGT React]()![ezgif-3-3f0762e3f8](https://user-images.githubusercontent.com/69396309/174685105-e9923179-ba0d-4999-9455-221c111b7cd2.gif)
+![ezgif-3-3f0762e3f8](https://user-images.githubusercontent.com/69396309/174685105-e9923179-ba0d-4999-9455-221c111b7cd2.gif)
 
 
 ### Getting Started
