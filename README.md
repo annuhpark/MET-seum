@@ -15,22 +15,15 @@ Try the application live at [https://annuhpark.github.io/ajax--project](https://
 
 ## Features
 
-- Teachers can view a list of recorded grades.
-- Teachers can view the average grade.
-- Teachers can add a grade to the table.
-- Teachers can delete a grade from the table.
+- User can search for an artwork.
+- User can see details of an artwork.
+- User can save an artwork to their favorites list.
+- User can view favorites list.
+- User can remove an artwork from their favorites list.
 
 ## Preview
 
 ![SGT React](assets/sgt-react.gif)
-
-## Development
-
-### System Requirements
-
-- Node.js 10 or higher
-- NPM 6 or higher
-- MongoDB 4 or higher
 
 ### Getting Started
 
