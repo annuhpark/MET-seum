@@ -32,8 +32,8 @@ Try the application live at [https://annuhpark.github.io/ajax--project](https://
 1. Clone the repository.
 
     ```shell
-    git clone https://github.com/Learning-Fuze/sgt-react
-    cd sgt-react
+    git clone git@github.com:annuhpark/ajax--project.git
+    cd ajax--project
     ```
 
 2. Install all dependencies with NPM.
