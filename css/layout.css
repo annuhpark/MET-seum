@@ -2,6 +2,10 @@
   display: none !important;
 }
 
+.view {
+  display: block;
+}
+
 .container {
   margin: 0 auto;
   padding: 0 1.5rem;

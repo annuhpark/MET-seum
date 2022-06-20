@@ -12,6 +12,8 @@ var $ul3 = document.querySelector('ul.details');
 var $modal = document.querySelector('.modal');
 var $cancelButton = document.querySelector('.cancel-button');
 var $confirmButton = document.querySelector('.confirm-button');
+var $h3Favorites = document.querySelector('h3.favorites');
+var $noFavoritesParent = document.querySelector('div.no-favorites');
 
 function getArtworksByDepartmentAndQuery() {
   event.preventDefault();
@@ -135,6 +137,7 @@ function getArtworkInformation(objectID) {
       };
       data.nextEntryId++;
       data.entries.unshift(entry);
+      $h3Favorites.remove();
       $ul2.prepend(renderEntries(entry));
       switchViewTo('favorites');
     });
@@ -314,6 +317,9 @@ $confirmButton.addEventListener('click', function (event) {
     if ($ul2.children[i].querySelector('h3.title').textContent === data.remove) {
       $ul2.children[i].remove();
       data.entries.splice(i, 1);
+      if (data.entries.length === 0) {
+        $noFavoritesParent.appendChild($h3Favorites);
+      }
     }
   }
   switchViewTo('favorites');
