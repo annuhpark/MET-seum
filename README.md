@@ -7,7 +7,7 @@ Front-end application for aesthetes that want to browse & archive famous artwork
 - HTML5
 - CSS3
 - JavaScript (ES5/ES6)
-- [I'm an inline-style link with title](https://metmuseum.github.io/ "Metropolitan Museum of Art Public API") using XMLHttpRequest
+- [Metropolitan Museum of Art Public API](https://metmuseum.github.io/ "Metropolitan Museum of Art Public API") using XMLHttpRequest
 
 ## Live Demo
 
