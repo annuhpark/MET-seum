@@ -19,6 +19,7 @@ Try the application live at [https://annuhpark.github.io/ajax--project](https://
 - User can see details of an artwork.
 - User can save an artwork to their favorites list.
 - User can view favorites list.
+- User can view details of an artwork from favorites list by clicking on each image.
 - User can remove an artwork from their favorites list.
 
 ## Preview
