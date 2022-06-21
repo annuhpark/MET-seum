@@ -1,6 +1,6 @@
 # MET-seum
 
-Front-end application for aesthetes that want to browse & archive famous artworks from the Metropolitan Museum of Art. 
+Web application for aesthetes that want to browse & archive famous artworks from the Metropolitan Museum of Art. 
 
 ## Technologies Used
 
@@ -36,8 +36,8 @@ Try the application live at [https://annuhpark.github.io/ajax--project](https://
 1. Clone the repository.
 
     ```shell
-    git clone git@github.com:annuhpark/ajax--project.git
-    cd ajax--project
+    git clone git@github.com:annuhpark/MET-seum.git
+    cd MET-seum
     ```
 
 2. Install all dependencies with NPM.
