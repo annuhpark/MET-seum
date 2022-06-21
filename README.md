@@ -11,7 +11,7 @@ Web application for aesthetes that want to browse & archive famous artworks from
 
 ## Live Demo
 
-Try the application live at [https://annuhpark.github.io/ajax--project](https://annuhpark.github.io/ajax--project)
+Try the application live at [https://annuhpark.github.io/MET-seum](https://annuhpark.github.io/MET-seum)
 
 ## Features
 
