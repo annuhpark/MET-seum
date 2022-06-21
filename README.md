@@ -1,6 +1,6 @@
 # MET-seum
 
-Web application for aesthetes that want to browse & archive famous artworks from the Metropolitan Museum of Art. 
+Front-end application for aesthetes that want to browse & archive famous artworks from the Metropolitan Museum of Art. 
 
 ## Technologies Used
 
