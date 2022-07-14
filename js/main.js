@@ -14,12 +14,14 @@ var $cancelButton = document.querySelector('.cancel-button');
 var $confirmButton = document.querySelector('.confirm-button');
 var $h3Favorites = document.querySelector('h3.favorites');
 var $noFavoritesParent = document.querySelector('div.no-favorites');
+var $loader = document.querySelector('.loader');
 
 function getArtworksByDepartmentAndQuery() {
   event.preventDefault();
   var xhr = new XMLHttpRequest();
   xhr.open('GET', 'https://collectionapi.metmuseum.org/public/collection/v1/search?departmentId=' + $department.value + '&q=' + $search.value);
   xhr.responseType = 'json';
+  $loader.className = 'loader';
   xhr.addEventListener('load', function () {
     if (xhr.response.objectIDs === null) {
       var $li = document.createElement('li');
@@ -32,6 +34,7 @@ function getArtworksByDepartmentAndQuery() {
       $errorText.setAttribute('class', 'title');
       $errorText.textContent = 'No results that match your criteria. Please try again!';
       $row.appendChild($errorText);
+      $loader.className = 'loader hidden';
       return $errorText;
     }
     var randomNumber = Math.floor(Math.random() * xhr.response.objectIDs.length);
@@ -47,6 +50,7 @@ function getArtworkInformation(objectID) {
   var xhr = new XMLHttpRequest();
   xhr.open('GET', 'https://collectionapi.metmuseum.org/public/collection/v1/objects/' + objectID);
   xhr.responseType = 'json';
+  $loader.className = 'loader';
   xhr.addEventListener('load', function () {
     for (let i = 0; i < $options.length; i++) {
       if ($department.value === $options[i].value) {
@@ -142,6 +146,7 @@ function getArtworkInformation(objectID) {
       switchViewTo('favorites');
     });
   });
+  $loader.className = 'loader hidden';
   xhr.send();
 }
 
