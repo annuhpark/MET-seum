@@ -1,27 +1,7 @@
-<<<<<<< HEAD
 // Unordered Lists:
 const $ulSearchResult = document.querySelector('ul.result');
 const $ulFavorites = document.querySelector('ul.favorites');
 const $ulDetails = document.querySelector('ul.details');
-=======
-var $ul = document.querySelector('ul.result');
-var $views = document.querySelectorAll('.view');
-var $form = document.querySelector('form');
-var $department = document.getElementById('department');
-var $search = document.querySelector('.search-box');
-var $folder = document.querySelector('.fa-folder-open');
-var $subHeadingOfDepartment = document.querySelector('h2.sub-heading');
-var $options = document.querySelectorAll('option');
-var $ul2 = document.querySelector('ul.favorites');
-var $heading = document.querySelector('.heading-text');
-var $ul3 = document.querySelector('ul.details');
-var $modal = document.querySelector('.modal');
-var $cancelButton = document.querySelector('.cancel-button');
-var $confirmButton = document.querySelector('.confirm-button');
-var $h3Favorites = document.querySelector('h3.favorites');
-var $noFavoritesParent = document.querySelector('div.no-favorites');
-var $loader = document.querySelector('.loader');
->>>>>>> origin/main
 
 // Switching View (display of page):
 var $views = document.querySelectorAll('.view');
@@ -52,14 +32,12 @@ var $cancelButton = document.querySelector('.cancel-button');
 var $noFavorites = document.querySelector('div.no-favorites');
 var $noFavoritesText = document.querySelector('h3.favorites');
 
-function getArtworkByDepartmentAndQuery() {
+function getObjectIdByDepartmentAndQuery() {
   event.preventDefault();
   const xhr = new XMLHttpRequest();
   xhr.open('GET', 'https://collectionapi.metmuseum.org/public/collection/v1/search?departmentId=' + $department.value + '&q=' + $search.value);
   xhr.responseType = 'json';
-  $loader.className = 'loader';
   xhr.addEventListener('load', function () {
-    console.log(xhr.response);
     if (xhr.response.objectIDs === null) {
       const $li = document.createElement('li');
       $li.setAttribute('class', 'container');
@@ -71,55 +49,53 @@ function getArtworkByDepartmentAndQuery() {
       $errorText.setAttribute('class', 'title');
       $errorText.textContent = 'No results that match your criteria. Please try again!';
       $row.appendChild($errorText);
-      $loader.className = 'loader hidden';
       return $errorText;
     }
     const randomNumber = Math.floor(Math.random() * xhr.response.objectIDs.length);
     const randomArtwork = xhr.response.objectIDs[randomNumber];
-    getArtworkInformation(randomArtwork);
+    getArtworkData(randomArtwork);
   });
   xhr.send();
   switchViewTo('results');
 }
-$form.addEventListener('submit', getArtworkByDepartmentAndQuery);
+$form.addEventListener('submit', getObjectIdByDepartmentAndQuery);
 
-function getArtworkInformation(objectID) {
-  var xhr = new XMLHttpRequest();
+function getArtworkData(objectID) {
+  const xhr = new XMLHttpRequest();
   xhr.open('GET', 'https://collectionapi.metmuseum.org/public/collection/v1/objects/' + objectID);
   xhr.responseType = 'json';
-  $loader.className = 'loader';
   xhr.addEventListener('load', function () {
     for (let i = 0; i < $options.length; i++) {
       if ($department.value === $options[i].value) {
         $searchedArtworkDepartment.textContent = $options[i].textContent;
       }
     }
-    var $li = document.createElement('li');
+    const $li = document.createElement('li');
     $li.setAttribute('class', 'container');
     $ulSearchResult.appendChild($li);
-    var $row = document.createElement('div');
+    const $row = document.createElement('div');
     $row.setAttribute('class', 'row align-items-center wrap');
     $li.appendChild($row);
-    var $columnHalf = document.createElement('div');
+    const $columnHalf = document.createElement('div');
     $columnHalf.setAttribute('class', 'column-half');
     $row.appendChild($columnHalf);
-    var $image = document.createElement('img');
+    const $image = document.createElement('img');
     if (xhr.response.primaryImage === undefined || xhr.response.primaryImage === '') {
       $image.setAttribute('src', 'images/no-image-available.jpg');
     } else {
       $image.setAttribute('src', xhr.response.primaryImage);
     }
     $columnHalf.appendChild($image);
-    var $secondColumnHalf = document.createElement('div');
+    const $secondColumnHalf = document.createElement('div');
     $secondColumnHalf.setAttribute('class', 'column-half left-padding');
     $row.appendChild($secondColumnHalf);
-    var $secondRow = document.createElement('div');
+    const $secondRow = document.createElement('div');
     $secondRow.setAttribute('class', 'row flex-direction-column text-align-center wrap');
     $secondColumnHalf.appendChild($secondRow);
-    var $blackLineDivider = document.createElement('hr');
+    const $blackLineDivider = document.createElement('hr');
     $blackLineDivider.setAttribute('class', 'thinner-solid');
     $secondRow.appendChild($blackLineDivider);
-    var $title = document.createElement('h3');
+    const $title = document.createElement('h3');
     $title.setAttribute('class', 'title');
     if (xhr.response.title === '') {
       $title.textContent = 'Title: Unknown';
@@ -127,7 +103,7 @@ function getArtworkInformation(objectID) {
       $title.textContent = xhr.response.title;
     }
     $secondRow.appendChild($title);
-    var $objectDate = document.createElement('h3');
+    const $objectDate = document.createElement('h3');
     $objectDate.setAttribute('class', 'object-date');
     if (xhr.response.objectDate === '') {
       $objectDate.textContent = 'Date: Unknown';
@@ -135,7 +111,7 @@ function getArtworkInformation(objectID) {
       $objectDate.textContent = xhr.response.objectDate;
     }
     $secondRow.appendChild($objectDate);
-    var $medium = document.createElement('h4');
+    const $medium = document.createElement('h4');
     $medium.setAttribute('class', 'medium');
     if (xhr.response.medium === '') {
       $medium.textContent = 'Medium: Unknown';
@@ -143,7 +119,7 @@ function getArtworkInformation(objectID) {
       $medium.textContent = xhr.response.medium;
     }
     $secondRow.appendChild($medium);
-    var $artistDisplayName = document.createElement('h3');
+    const $artistDisplayName = document.createElement('h3');
     $artistDisplayName.setAttribute('class', 'artist-display-name');
     if (xhr.response.artistDisplayName === '') {
       $artistDisplayName.textContent = 'Artist: Unknown';
@@ -151,7 +127,7 @@ function getArtworkInformation(objectID) {
       $artistDisplayName.textContent = xhr.response.artistDisplayName;
     }
     $secondRow.appendChild($artistDisplayName);
-    var $artistDisplayBio = document.querySelector('h4');
+    const $artistDisplayBio = document.querySelector('h4');
     $artistDisplayBio.setAttribute('class', 'artist-display-bio');
     if (xhr.response.artistDisplayBio === '') {
       $artistDisplayBio.textContent = 'Biography: Unknown';
@@ -159,14 +135,14 @@ function getArtworkInformation(objectID) {
       $artistDisplayBio.textContent = xhr.response.artistDisplayBio;
     }
     $secondRow.appendChild($artistDisplayBio);
-    var $secondBlackLineDivider = document.createElement('hr');
+    const $secondBlackLineDivider = document.createElement('hr');
     $secondBlackLineDivider.setAttribute('class', 'thinner-solid');
     $secondRow.appendChild($secondBlackLineDivider);
-    var $heart = document.createElement('i');
+    const $heart = document.createElement('i');
     $heart.setAttribute('class', 'far fa-heart heading-padding');
     $secondRow.appendChild($heart);
     $heart.addEventListener('click', function (event) {
-      var entry = {
+      const entry = {
         title: xhr.response.title,
         primaryImage: xhr.response.primaryImage,
         entryId: data.nextEntryId,
@@ -183,7 +159,6 @@ function getArtworkInformation(objectID) {
       switchViewTo('favorites');
     });
   });
-  $loader.className = 'loader hidden';
   xhr.send();
 }
 
