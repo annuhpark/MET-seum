@@ -1,47 +1,65 @@
-var $ul = document.querySelector('ul.result');
-var $views = document.querySelectorAll('.view');
-var $form = document.querySelector('form');
-var $department = document.getElementById('department');
-var $search = document.querySelector('.search-box');
-var $folder = document.querySelector('.fa-folder-open');
-var $subHeadingOfDepartment = document.querySelector('h2.sub-heading');
-var $options = document.querySelectorAll('option');
-var $ul2 = document.querySelector('ul.favorites');
-var $heading = document.querySelector('.heading-text');
-var $ul3 = document.querySelector('ul.details');
-var $modal = document.querySelector('.modal');
-var $cancelButton = document.querySelector('.cancel-button');
-var $confirmButton = document.querySelector('.confirm-button');
-var $h3Favorites = document.querySelector('h3.favorites');
-var $noFavoritesParent = document.querySelector('div.no-favorites');
+// Unordered Lists:
+const $ulSearchResult = document.querySelector('ul.result');
+const $ulFavorites = document.querySelector('ul.favorites');
+const $ulDetails = document.querySelector('ul.details');
 
-function getArtworksByDepartmentAndQuery() {
+// Switching View (display of page):
+var $views = document.querySelectorAll('.view');
+
+// Submitting Form w/ Button Click:
+var $form = document.querySelector('form');
+
+// Update Department Title According to Search:
+var $department = document.getElementById('department');
+var $options = document.querySelectorAll('option');
+var $searchedArtworkDepartment = document.querySelector('h2.sub-heading');
+
+// Search value from User:
+var $search = document.querySelector('.search-box');
+
+// Folder Icon at Top Left:
+var $folder = document.querySelector('.fa-folder-open');
+
+// Main Heading at Top Center:
+var $heading = document.querySelector('.heading-text');
+
+// Modal, then Confirm or Cancel Deleting Artwork from Favorites:
+var $modal = document.querySelector('.modal');
+var $confirmButton = document.querySelector('.confirm-button');
+var $cancelButton = document.querySelector('.cancel-button');
+
+// Favorites List Update:
+var $noFavorites = document.querySelector('div.no-favorites');
+var $noFavoritesText = document.querySelector('h3.favorites');
+
+function getArtworkByDepartmentAndQuery() {
   event.preventDefault();
-  var xhr = new XMLHttpRequest();
+  const xhr = new XMLHttpRequest();
   xhr.open('GET', 'https://collectionapi.metmuseum.org/public/collection/v1/search?departmentId=' + $department.value + '&q=' + $search.value);
   xhr.responseType = 'json';
   xhr.addEventListener('load', function () {
+    console.log(xhr.response);
     if (xhr.response.objectIDs === null) {
-      var $li = document.createElement('li');
+      const $li = document.createElement('li');
       $li.setAttribute('class', 'container');
-      $ul.appendChild($li);
-      var $row = document.createElement('div');
+      $ulSearchResult.appendChild($li);
+      const $row = document.createElement('div');
       $row.setAttribute('class', 'row flex-direction-column text-align-center wrap');
       $li.appendChild($row);
-      var $errorText = document.createElement('h3');
+      const $errorText = document.createElement('h3');
       $errorText.setAttribute('class', 'title');
       $errorText.textContent = 'No results that match your criteria. Please try again!';
       $row.appendChild($errorText);
       return $errorText;
     }
-    var randomNumber = Math.floor(Math.random() * xhr.response.objectIDs.length);
-    var randomArtwork = xhr.response.objectIDs[randomNumber];
+    const randomNumber = Math.floor(Math.random() * xhr.response.objectIDs.length);
+    const randomArtwork = xhr.response.objectIDs[randomNumber];
     getArtworkInformation(randomArtwork);
   });
   xhr.send();
   switchViewTo('results');
 }
-$form.addEventListener('submit', getArtworksByDepartmentAndQuery);
+$form.addEventListener('submit', getArtworkByDepartmentAndQuery);
 
 function getArtworkInformation(objectID) {
   var xhr = new XMLHttpRequest();
@@ -50,12 +68,12 @@ function getArtworkInformation(objectID) {
   xhr.addEventListener('load', function () {
     for (let i = 0; i < $options.length; i++) {
       if ($department.value === $options[i].value) {
-        $subHeadingOfDepartment.textContent = $options[i].textContent;
+        $searchedArtworkDepartment.textContent = $options[i].textContent;
       }
     }
     var $li = document.createElement('li');
     $li.setAttribute('class', 'container');
-    $ul.appendChild($li);
+    $ulSearchResult.appendChild($li);
     var $row = document.createElement('div');
     $row.setAttribute('class', 'row align-items-center wrap');
     $li.appendChild($row);
@@ -137,8 +155,8 @@ function getArtworkInformation(objectID) {
       };
       data.nextEntryId++;
       data.entries.unshift(entry);
-      $h3Favorites.remove();
-      $ul2.prepend(renderEntries(entry));
+      $noFavoritesText.remove();
+      $ulFavorites.prepend(renderEntries(entry));
       switchViewTo('favorites');
     });
   });
@@ -149,7 +167,7 @@ function renderEntries(artwork) {
   var $li = document.createElement('li');
   $li.setAttribute('class', 'container heading-padding');
   $li.setAttribute('data-entry-id', artwork.entryId);
-  $ul2.appendChild($li);
+  $ulFavorites.appendChild($li);
   var $row = document.createElement('div');
   $row.setAttribute('class', 'row align-items-center wrap');
   $li.appendChild($row);
@@ -170,7 +188,7 @@ function renderEntries(artwork) {
       if (event.target === $images[i]) {
         var $li = document.createElement('li');
         $li.setAttribute('class', 'container');
-        $ul3.appendChild($li);
+        $ulDetails.appendChild($li);
         var $row = document.createElement('div');
         $row.setAttribute('class', 'row align-items-center wrap');
         $li.appendChild($row);
@@ -281,7 +299,7 @@ function renderEntries(artwork) {
 window.addEventListener('DOMContentLoaded', function (event) {
   for (let i = 0; i < data.entries.length; i++) {
     var value = renderEntries(data.entries[i]);
-    $ul2.appendChild(value);
+    $ulSearchResult.appendChild(value);
   }
   switchViewTo(data.view);
 });
@@ -298,27 +316,28 @@ function switchViewTo(targetPage) {
 }
 
 $heading.addEventListener('click', function (event) {
-  $ul.innerHTML = '';
-  $ul3.innerHTML = '';
+  $ulSearchResult.innerHTML = '';
+  $ulDetails.innerHTML = '';
   $form.reset();
   switchViewTo('search-form');
 });
 
 $folder.addEventListener('click', function (event) {
   switchViewTo('favorites');
-  $ul3.innerHTML = '';
+  $ulDetails.innerHTML = '';
 });
+
 $cancelButton.addEventListener('click', function (event) {
   $modal.className = 'modal view hidden';
 });
 
 $confirmButton.addEventListener('click', function (event) {
-  for (let i = 0; i < $ul2.children.length; i++) {
-    if ($ul2.children[i].querySelector('h3.title').textContent === data.remove) {
-      $ul2.children[i].remove();
+  for (let i = 0; i < $ulFavorites.children.length; i++) {
+    if ($ulFavorites.children[i].querySelector('h3.title').textContent === data.remove) {
+      $ulFavorites.children[i].remove();
       data.entries.splice(i, 1);
       if (data.entries.length === 0) {
-        $noFavoritesParent.appendChild($h3Favorites);
+        $noFavorites.appendChild($noFavoritesText);
       }
     }
   }
