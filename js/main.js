@@ -1,7 +1,27 @@
+<<<<<<< HEAD
 // Unordered Lists:
 const $ulSearchResult = document.querySelector('ul.result');
 const $ulFavorites = document.querySelector('ul.favorites');
 const $ulDetails = document.querySelector('ul.details');
+=======
+var $ul = document.querySelector('ul.result');
+var $views = document.querySelectorAll('.view');
+var $form = document.querySelector('form');
+var $department = document.getElementById('department');
+var $search = document.querySelector('.search-box');
+var $folder = document.querySelector('.fa-folder-open');
+var $subHeadingOfDepartment = document.querySelector('h2.sub-heading');
+var $options = document.querySelectorAll('option');
+var $ul2 = document.querySelector('ul.favorites');
+var $heading = document.querySelector('.heading-text');
+var $ul3 = document.querySelector('ul.details');
+var $modal = document.querySelector('.modal');
+var $cancelButton = document.querySelector('.cancel-button');
+var $confirmButton = document.querySelector('.confirm-button');
+var $h3Favorites = document.querySelector('h3.favorites');
+var $noFavoritesParent = document.querySelector('div.no-favorites');
+var $loader = document.querySelector('.loader');
+>>>>>>> origin/main
 
 // Switching View (display of page):
 var $views = document.querySelectorAll('.view');
@@ -37,6 +57,7 @@ function getArtworkByDepartmentAndQuery() {
   const xhr = new XMLHttpRequest();
   xhr.open('GET', 'https://collectionapi.metmuseum.org/public/collection/v1/search?departmentId=' + $department.value + '&q=' + $search.value);
   xhr.responseType = 'json';
+  $loader.className = 'loader';
   xhr.addEventListener('load', function () {
     console.log(xhr.response);
     if (xhr.response.objectIDs === null) {
@@ -50,6 +71,7 @@ function getArtworkByDepartmentAndQuery() {
       $errorText.setAttribute('class', 'title');
       $errorText.textContent = 'No results that match your criteria. Please try again!';
       $row.appendChild($errorText);
+      $loader.className = 'loader hidden';
       return $errorText;
     }
     const randomNumber = Math.floor(Math.random() * xhr.response.objectIDs.length);
@@ -65,6 +87,7 @@ function getArtworkInformation(objectID) {
   var xhr = new XMLHttpRequest();
   xhr.open('GET', 'https://collectionapi.metmuseum.org/public/collection/v1/objects/' + objectID);
   xhr.responseType = 'json';
+  $loader.className = 'loader';
   xhr.addEventListener('load', function () {
     for (let i = 0; i < $options.length; i++) {
       if ($department.value === $options[i].value) {
@@ -160,6 +183,7 @@ function getArtworkInformation(objectID) {
       switchViewTo('favorites');
     });
   });
+  $loader.className = 'loader hidden';
   xhr.send();
 }
 
