@@ -32,6 +32,9 @@ var $cancelButton = document.querySelector('.cancel-button');
 var $noFavorites = document.querySelector('div.no-favorites');
 var $noFavoritesText = document.querySelector('h3.favorites');
 
+// Loader:
+var $loader = document.querySelector('.loader');
+
 function getObjectIdByDepartmentAndQuery() {
   event.preventDefault();
   const xhr = new XMLHttpRequest();
@@ -51,9 +54,9 @@ function getObjectIdByDepartmentAndQuery() {
       $row.appendChild($errorText);
       return $errorText;
     }
-    const randomNumber = Math.floor(Math.random() * xhr.response.objectIDs.length);
-    const randomArtwork = xhr.response.objectIDs[randomNumber];
-    getArtworkData(randomArtwork);
+    const randomIndex = Math.floor(Math.random() * xhr.response.objectIDs.length);
+    const chosenObjectId = xhr.response.objectIDs[randomIndex];
+    getArtworkData(chosenObjectId);
   });
   xhr.send();
   switchViewTo('results');
@@ -159,6 +162,7 @@ function getArtworkData(objectID) {
       switchViewTo('favorites');
     });
   });
+  $loader.className = 'loader hidden';
   xhr.send();
 }
 
@@ -183,8 +187,8 @@ function renderEntries(artwork) {
   $image.classList.add('hover-class-one');
   $image.addEventListener('click', function (event) {
     var $images = document.querySelectorAll('img');
-    for (let i = 0; i < $images.length; i++) {
-      if (event.target === $images[i]) {
+    for (let i = 0; i < data.entries.length; i++) {
+      if (event.target.src === data.entries[i].primaryImage) {
         var $li = document.createElement('li');
         $li.setAttribute('class', 'container');
         $ulDetails.appendChild($li);
