@@ -37,6 +37,7 @@ var $loader = document.querySelector('.loader');
 
 function getObjectIdByDepartmentAndQuery() {
   event.preventDefault();
+  $searchedArtworkDepartment.textContent = '';
   const xhr = new XMLHttpRequest();
   xhr.open('GET', 'https://collectionapi.metmuseum.org/public/collection/v1/search?departmentId=' + $department.value + '&q=' + $search.value);
   xhr.responseType = 'json';
@@ -67,9 +68,11 @@ function getArtworkData(objectID) {
   const xhr = new XMLHttpRequest();
   xhr.open('GET', 'https://collectionapi.metmuseum.org/public/collection/v1/objects/' + objectID);
   xhr.responseType = 'json';
+  $loader.className = 'loader';
   xhr.addEventListener('load', function () {
     for (let i = 0; i < $options.length; i++) {
       if ($department.value === $options[i].value) {
+        $loader.className = 'loader hidden';
         $searchedArtworkDepartment.textContent = $options[i].textContent;
       }
     }
@@ -162,7 +165,6 @@ function getArtworkData(objectID) {
       switchViewTo('favorites');
     });
   });
-  $loader.className = 'loader hidden';
   xhr.send();
 }
 
