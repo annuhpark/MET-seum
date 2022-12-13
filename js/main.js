@@ -190,7 +190,7 @@ function renderEntries(artwork) {
   $image.addEventListener('click', function (event) {
     var $images = document.querySelectorAll('img');
     for (let i = 0; i < data.entries.length; i++) {
-      if (event.target.src === data.entries[i].primaryImage) {
+      if (event.target.src === data.entries[i].primaryImage || event.target.src === 'http://127.0.0.1:5500/images/no-image-available.jpg') {
         var $li = document.createElement('li');
         $li.setAttribute('class', 'container');
         $ulDetails.appendChild($li);
